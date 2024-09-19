@@ -1,0 +1,73 @@
+/* Hotbar Container */
+.hotbar {
+    background-color: #E6002B;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 41px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    align-items: center; /* Center items vertically */
+}
+
+/* Logo Styling */
+.hotbar .logo {
+    height: 40px;
+    margin-right: 15px;
+}
+
+/* Navigation Links */
+.hotbar a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px; /* Margin on both sides */
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 41px; /* Matches the hotbar height */
+    padding: 0 10px; /* Padding inside the link */
+    position: relative;
+    display: inline-block; /* Allows padding to affect the element */
+    transition: color 0.3s;
+}
+
+/* Pseudo-element for Hover Effect */
+.hotbar a::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -15px; /* Extend to the left margin */
+    right: -15px; /* Extend to the right margin */
+    bottom: -10px;
+    background-color: black;
+    z-index: -1; /* Place behind the text */
+    opacity: 0; /* Initially hidden */
+}
+
+/* Hover State for Links */
+.hotbar a:hover::before {
+    opacity: 1; /* Show background on hover */
+}
+
+/* Username and Logout Styling */
+.hotbar .username,
+.hotbar .logout {
+    margin-left: auto;
+    font-size: 20px;
+    line-height: 41px; /* Matches the hotbar height */
+    padding: 0 10px; /* Add some padding for better hit area */
+}
+
+/* Clearfix for Floating Elements */
+.hotbar:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Content Padding to Avoid Overlap with Hotbar */
+.content {
+    padding-top: 51px; /* Adjust to avoid overlap with the fixed hotbar */
+}
