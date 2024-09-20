@@ -37,26 +37,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_prediction']) 
     $second_place = $_POST['second_place'];
     $third_place = $_POST['third_place'];
     $fastest_lap = $_POST['fastest_lap'];
+    $winning_constructor = $_POST['winning_constructor'];
+    $any_safety_cars = isset($_POST['any_safety_cars']) ? 1 : 0;
     $any_retirements = isset($_POST['any_retirements']) ? 1 : 0;
 
     // Insert or update the prediction
-    $query = "INSERT INTO user_predictions (
+    $query = "INSERT INTO predictions (
                 user_id, race_id, first_place, second_place, third_place, 
-                fastest_lap, any_retirements
+                fastest_lap, winning_constructor, any_safety_cars, any_retirements
               ) VALUES (
-                ?, ?, ?, ?, ?, ?, ?
+                ?, ?, ?, ?, ?, ?, ?, ?, ?
               ) ON DUPLICATE KEY UPDATE
                 first_place = VALUES(first_place),
                 second_place = VALUES(second_place),
                 third_place = VALUES(third_place),
                 fastest_lap = VALUES(fastest_lap),
+                winning_constructor = VALUES(winning_constructor),
+                any_safety_cars = VALUES(any_safety_cars),
                 any_retirements = VALUES(any_retirements)";
 
     $stmt = $conn->prepare($query);
     $stmt->bind_param(
-        "iissssi", 
+        "iisssssii", 
         $user_id, $race_id, $first_place, $second_place, $third_place, 
-        $fastest_lap, $any_retirements
+        $fastest_lap, $winning_constructor, $any_safety_cars, $any_retirements
     );
 
     if ($stmt->execute()) {
@@ -67,8 +71,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_prediction']) 
     $stmt->close();
 }
 
+// Fetch race details again to ensure the latest data
+$race_query = "SELECT * FROM races WHERE race_id = ?";
+$stmt = $conn->prepare($race_query);
+$stmt->bind_param("i", $race_id);
+$stmt->execute();
+$race_result = $stmt->get_result();
+$race = $race_result->fetch_assoc();
+$stmt->close();
+
+// Calculate deadline for submissions (1 minute before the race date)
+$deadline = new DateTime($race['race_date']);
+$deadline->modify('-1 minute');
+
 // Fetch existing predictions for the current race
-$prediction_query = "SELECT * FROM user_predictions WHERE user_id = ? AND race_id = ?";
+$prediction_query = "SELECT * FROM predictions WHERE user_id = ? AND race_id = ?";
 $stmt = $conn->prepare($prediction_query);
 $stmt->bind_param("ii", $user_id, $race_id);
 $stmt->execute();
@@ -76,7 +93,7 @@ $prediction_result = $stmt->get_result();
 $prediction = $prediction_result->fetch_assoc();
 $stmt->close();
 
-// Fetch previous, next, and first race IDs based on the current race ID
+// Fetch the previous, next, and first race IDs based on the current race ID
 $prev_race_query = "SELECT race_id FROM races WHERE race_date < (SELECT race_date FROM races WHERE race_id = ?) ORDER BY race_date DESC LIMIT 1";
 $next_race_query = "SELECT race_id FROM races WHERE race_date > (SELECT race_date FROM races WHERE race_id = ?) ORDER BY race_date ASC LIMIT 1";
 $current_race_query = "SELECT race_id FROM races WHERE race_date > NOW() ORDER BY race_date ASC LIMIT 1";

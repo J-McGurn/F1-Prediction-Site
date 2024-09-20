@@ -1,0 +1,101 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #E6002B;
+}
+
+.race-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 10px; /* Space between buttons */
+}
+
+.race-navigation .button {
+    text-decoration: none;
+    color: #fff;
+    background-color: #E6002B;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.race-navigation .button:hover {
+    background-color: #c6001a;
+}
+
+.current-race {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0 15px;
+}
+
+h2 {
+    text-align: center;
+    color: #E6002B;
+    margin-top: 20px;
+}
+
+.deadline {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.prediction-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.prediction-form label {
+    margin-bottom: 5px;
+}
+
+.prediction-form input[type="text"],
+.prediction-form input[type="checkbox"] {
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.prediction-form button {
+    background-color: #E6002B;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.prediction-form button:hover {
+    background-color: #c6001a;
+}
+
+.prediction-form input[type="checkbox"] {
+    width: auto;
+}
