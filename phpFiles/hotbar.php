@@ -3,26 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        /* Insert the updated CSS here */
-    </style>
+    <link rel="stylesheet" href="../css/hotbar.css">
 </head>
 <body>
-    <div class="hotbar">
+<div class="hotbar">
         <img src="../images/f1.png" alt="Logo" class="logo">
-        <div class="hotbar-links">
-            <ul>
-                <li><a href="home.php">Home</a></li>
-                <li><a href="profile.php">Profile</a></li>
-                <li><a href="settings.php">Settings</a></li>
-                <li><a href="contact.php">Contact</a></li>
-            </ul>
-            <span class="username">Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?></span>
-            <a href="index.php" class="logout">Logout</a>
+        <a href="home.php">Home</a>
+        <div class="dropdown">
+            <button class="dropbtn">Standings</button>
+            <div class="dropdown-content">
+                <a href="newpage1.php">Drivers</a>
+                <a href="newpage2.php">Constructors</a>
+            </div>
         </div>
+        <a href="predictions.php">Predictions</a>
+        <a href="leaderboard.php">Leaderboard</a>
+        <a href="points_system.php">Points System</a>
+        <a href="index.php" class="logout">Logout</a>
     </div>
     <div class="content">
-        <!-- Your page content here -->
-    </div>
 </body>
-</html>

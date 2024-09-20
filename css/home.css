@@ -1,0 +1,44 @@
+/* General Page Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+/* Welcome message styling */
+.welcome-message {
+    text-align: center;
+    margin: 20px 0;
+}
+
+h1 {
+    color: #333;
+}
+
+/* Left section (constructor standings) styling */
+.left-section {
+    width: 30%;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+table.constructors {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table.constructors th, 
+table.constructors td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
