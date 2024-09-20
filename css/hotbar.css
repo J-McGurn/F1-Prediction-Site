@@ -1,63 +1,66 @@
 /* Hotbar Container */
 .hotbar {
-    background-color: #E6002B;
-    padding: 10px;
+    display: flex; /* Use flexbox for layout */
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 41px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    display: flex;
+    justify-content: space-between; /* Distribute space between items */
     align-items: center; /* Center items vertically */
+    background-color: #E6002B;
+    color: white;
+    padding: 0 16px;
+    width: 100%;
+    height: 41px; /* Ensure hotbar height matches links height */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow for better visibility */
+    z-index: 1000; /* Ensure hotbar is on top of other content */
 }
 
 /* Logo Styling */
 .hotbar .logo {
-    height: 40px;
-    margin-right: 15px;
+    height: 40px; /* Adjust height to fit with other elements */
 }
 
-/* Navigation Links */
-.hotbar a {
-    color: white;
+/* Hotbar Links */
+.hotbar-links {
+    display: flex; /* Align links horizontally */
+    align-items: center; /* Center links vertically */
+    flex-grow: 1; /* Allow links to take up remaining space */
+}
+
+.hotbar-links ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    align-items: center; /* Ensure links are centered vertically */
+}
+
+.hotbar-links li {
+    margin: 0;
+}
+
+.hotbar-links li a {
+    display: block;
     text-decoration: none;
-    margin: 0 15px; /* Margin on both sides */
-    font-weight: bold;
-    font-size: 20px;
-    line-height: 41px; /* Matches the hotbar height */
-    padding: 0 10px; /* Padding inside the link */
-    position: relative;
-    display: inline-block; /* Allows padding to affect the element */
-    transition: color 0.3s;
+    color: white;
+    padding: 10px 16px; /* Adjust padding for better spacing */
+    font-size: 1.5rem;
+    background-color: #E6002B;
+    text-align: center;
+    white-space: nowrap; /* Prevent text from wrapping */
+    transition: background-color 0.3s ease; /* Smooth background color transition */
 }
 
-/* Pseudo-element for Hover Effect */
-.hotbar a::before {
-    content: "";
-    position: absolute;
-    top: -10px;
-    left: -15px; /* Extend to the left margin */
-    right: -15px; /* Extend to the right margin */
-    bottom: -10px;
-    background-color: black;
-    z-index: -1; /* Place behind the text */
-    opacity: 0; /* Initially hidden */
-}
-
-/* Hover State for Links */
-.hotbar a:hover::before {
-    opacity: 1; /* Show background on hover */
+.hotbar-links li a:hover {
+    background-color: black; /* Highlight background on hover */
 }
 
 /* Username and Logout Styling */
-.hotbar .username,
-.hotbar .logout {
-    margin-left: auto;
-    font-size: 20px;
-    line-height: 41px; /* Matches the hotbar height */
-    padding: 0 10px; /* Add some padding for better hit area */
+.username,
+.logout {
+    margin-left: 20px; /* Space between links and user info */
+    font-size: 1.5rem; /* Consistent font size */
+    line-height: 41px; /* Match the hotbar height */
 }
 
 /* Clearfix for Floating Elements */
