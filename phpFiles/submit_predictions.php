@@ -31,36 +31,43 @@ $stmt->close();
 $is_race_open = $current_datetime <= new DateTime($race['race_date']);
 $is_editable = $current_datetime < new DateTime($race['race_date']);
 
+// Fetch driver options from the active_drivers table
+$drivers = [];
+$driver_query = "SELECT driver_id, driver_name FROM active_drivers"; 
+$driver_result = $conn->query($driver_query);
+
+if ($driver_result) {
+    while ($row = $driver_result->fetch_assoc()) {
+        $drivers[] = $row; // Store driver options in an array
+    }
+}
+
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_prediction']) && $is_editable) {
-    $first_place = $_POST['first_place'];
-    $second_place = $_POST['second_place'];
-    $third_place = $_POST['third_place'];
+    $first_place = $_POST['1st_place'];
+    $second_place = $_POST['2nd_place'];
+    $third_place = $_POST['3rd_place'];
     $fastest_lap = $_POST['fastest_lap'];
-    $winning_constructor = $_POST['winning_constructor'];
-    $any_safety_cars = isset($_POST['any_safety_cars']) ? 1 : 0;
-    $any_retirements = isset($_POST['any_retirements']) ? 1 : 0;
+    $any_retirements = isset($_POST['retirements']) ? 1 : 0;
 
     // Insert or update the prediction
     $query = "INSERT INTO user_predictions (
-                user_id, race_id, first_place, second_place, third_place, 
-                fastest_lap, winning_constructor, any_safety_cars, any_retirements
+                user_id, race_id, 1st_place, 2nd_place, 3rd_place, 
+                fastest_lap, retirements
               ) VALUES (
-                ?, ?, ?, ?, ?, ?, ?, ?, ?
+                ?, ?, ?, ?, ?, ?, ?
               ) ON DUPLICATE KEY UPDATE
-                first_place = VALUES(first_place),
-                second_place = VALUES(second_place),
-                third_place = VALUES(third_place),
+                1st_place = VALUES(1st_place),
+                2nd_place = VALUES(2nd_place),
+                3rd_place = VALUES(3rd_place),
                 fastest_lap = VALUES(fastest_lap),
-                winning_constructor = VALUES(winning_constructor),
-                any_safety_cars = VALUES(any_safety_cars),
-                any_retirements = VALUES(any_retirements)";
+                retirements = VALUES(retirements)";
 
     $stmt = $conn->prepare($query);
     $stmt->bind_param(
-        "iisssssii", 
+        "iissssi", 
         $user_id, $race_id, $first_place, $second_place, $third_place, 
-        $fastest_lap, $winning_constructor, $any_safety_cars, $any_retirements
+        $fastest_lap, $any_retirements
     );
 
     if ($stmt->execute()) {
