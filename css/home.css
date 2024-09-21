@@ -1,44 +1,117 @@
-/* General Page Styling */
+
+/* General Styles */
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
 }
 
+/* Welcome Message */
+.welcome-message {
+    text-align: center;
+    padding: 20px;
+    background-color: #e6e6e6;
+    margin-top: 60px;
+}
+
+.welcome-message h1 {
+    font-size: 2rem;
+}
+
+h3 {
+    background-color: #E6002B;
+    color: white;
+    margin: 0px;
+    font-size: 22px;
+    padding: 10px;
+}
+
+.welcome-message p {
+    font-size: 1.2rem;
+}
+
+/* Container for two sections */
 .container {
     display: flex;
     justify-content: space-between;
     padding: 20px;
+    max-width: 1320px;  /* 60% of the full page width */
+    margin: 0 auto; /* Center the container horizontally */
 }
 
-/* Welcome message styling */
-.welcome-message {
-    text-align: center;
-    margin: 20px 0;
-}
-
-h1 {
-    color: #333;
-}
-
-/* Left section (constructor standings) styling */
+/* Left Section - Main Content */
 .left-section {
-    width: 30%;
+    width: 70%; /* Left section takes 65% of the container's width */
     background-color: #fff;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding-right: 20px;
+
+}
+/* Right Section - Container for top and bottom sections */
+.right-section {
+    width: 30%; /* Right section takes 35% of the container's width */
+    border-radius: 8px;
+     /* Space between left and right sections */
+    /* Vertical border for separation */
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 30%;
 }
 
-table.constructors {
+.tables {
+    background-color: #fff;
+}
+
+/* Table Styles */
+table.drivers, table.constructors {
     width: 100%;
     border-collapse: collapse;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
 }
 
-table.constructors th, 
+
+table.drivers td,
 table.constructors td {
-    border: 1px solid #ddd;
-    padding: 8px;
+    border: 1px;
+    padding: 10px;
     text-align: left;
+}
+
+/* Adjust the logo size */
+table.drivers img, table.constructors img {
+    width: 40px; /* Adjust size as needed */
+    height: 40px; /* Maintain aspect ratio */
+    object-fit: contain;
+    margin: 0 auto;
+}
+
+
+.position {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: right;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .container {
+        width: 80%; /* Reduce content width on smaller screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Stack sections vertically on small screens */
+        width: 100%; /* Full width */
+    }
+    .left-section, .right-section {
+        width: 100%; /* Full width for both sections on mobile */
+        margin-bottom: 20px;
+    }
 }

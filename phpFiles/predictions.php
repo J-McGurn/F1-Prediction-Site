@@ -12,7 +12,7 @@ include 'hotbar.php';
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>F1 Predictions</title>
-    <link rel="stylesheet" href="css/predictions.css"> <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="../css/predictions.css"> <!-- Link to the CSS file -->
 </head>
 <body>
     <div class="container">

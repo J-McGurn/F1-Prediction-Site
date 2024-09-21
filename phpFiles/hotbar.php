@@ -12,8 +12,8 @@
         <div class="dropdown">
             <button class="dropbtn">Standings</button>
             <div class="dropdown-content">
-                <a href="newpage1.php">Drivers</a>
-                <a href="newpage2.php">Constructors</a>
+                <a href="drivers.php">Drivers</a>
+                <a href="constructors.php">Constructors</a>
             </div>
         </div>
         <a href="predictions.php">Predictions</a>

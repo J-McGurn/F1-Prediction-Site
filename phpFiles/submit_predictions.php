@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_prediction']) 
     $any_retirements = isset($_POST['any_retirements']) ? 1 : 0;
 
     // Insert or update the prediction
-    $query = "INSERT INTO predictions (
+    $query = "INSERT INTO user_predictions (
                 user_id, race_id, first_place, second_place, third_place, 
                 fastest_lap, winning_constructor, any_safety_cars, any_retirements
               ) VALUES (
@@ -85,7 +85,7 @@ $deadline = new DateTime($race['race_date']);
 $deadline->modify('-1 minute');
 
 // Fetch existing predictions for the current race
-$prediction_query = "SELECT * FROM predictions WHERE user_id = ? AND race_id = ?";
+$prediction_query = "SELECT * FROM user_predictions WHERE user_id = ? AND race_id = ?";
 $stmt = $conn->prepare($prediction_query);
 $stmt->bind_param("ii", $user_id, $race_id);
 $stmt->execute();
