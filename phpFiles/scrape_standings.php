@@ -1,6 +1,12 @@
 <?php
 require '../vendor/autoload.php';
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('log_errors', 1);
+ini_set('error_log', 'C:\path\to\your\error.log');
+
+
 use PHPHtmlParser\Dom;
 
 $teamLogos = [
@@ -55,7 +61,7 @@ if ($table) {
     echo "</table>";
 
     // Save the scraped data into a JSON file
-    file_put_contents('../data/constructors.json', json_encode($data));
+    file_put_contents(__DIR__ . '/../data/constructors.json', json_encode($data));
 } else {
     echo "Table not found.";
 }
@@ -103,8 +109,11 @@ if ($table) {
     echo "</table>";
 
     // Save the scraped data into a JSON file
-    file_put_contents('../data/drivers.json', json_encode($data));
+    file_put_contents(__DIR__ . '/../data/drivers.json', json_encode($data));
 } else {
     echo "Table not found.";
 }
+?>
+<?php
+file_put_contents(__DIR__ . '/../data/test.txt', 'Hello, World!');
 ?>
