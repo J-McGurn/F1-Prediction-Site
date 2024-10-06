@@ -9,6 +9,7 @@ require 'config.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup and Login</title>
+    <link rel="icon" href="../images/f1.png">
     <link rel="stylesheet" href="../css/index.css"> <!-- Adjust path to CSS -->
 </head>
 <body>
