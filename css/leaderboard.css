@@ -114,3 +114,120 @@ td:last-child, th:last-child {
         padding: 6px 10px;
     }
 }
+
+/* General page styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #222;
+}
+
+/* Race navigation buttons */
+.race-navigation {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.race-navigation .button {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 0 5px;
+    font-size: 16px;
+    background-color: #b30000; /* Red color */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.race-navigation .button:hover {
+    background-color: #800000; /* Darker red on hover */
+}
+
+.race-navigation .current-race {
+    display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 10px;
+    color: #333;
+}
+
+/* Table styles */
+table {
+    width: 80%; /* More compact width */
+    margin: 0 auto 40px auto;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 8px 10px; /* Smaller padding for compact size */
+    text-align: center;
+    font-size: 14px;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+td {
+    color: #555;
+}
+
+th, td {
+    transition: background-color 0.3s ease;
+}
+
+/* Rank column */
+td:first-child, th:first-child {
+    font-weight: bold;
+    color: #222;
+}
+
+/* Full name column */
+td:nth-child(2), th:nth-child(2) {
+    text-align: left;
+    padding-left: 15px;
+}
+
+/* Points column */
+td:last-child, th:last-child {
+    font-weight: bold;
+    color: #b30000; /* Red for points */
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    table, th, td {
+        font-size: 12px;
+    }
+
+    .race-navigation .button {
+        font-size: 14px;
+        padding: 6px 10px;
+    }
+}
