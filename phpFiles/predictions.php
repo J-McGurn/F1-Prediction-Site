@@ -28,7 +28,8 @@ include 'hotbar.php';
                     <?php endif; ?>
 
                     <?php if (isset($prev_race_id)): ?>
-                        <a href="predictions.php?race_id=<?php echo $prev_race_id; ?>" class="button"><</a>
+                        <a href="predictions.php?race_id=<?php echo $prev_race_id; ?>" class="button">
+                            <</a>
                             <?php endif; ?>
 
                             <span class="current-race">
@@ -47,10 +48,6 @@ include 'hotbar.php';
         <p class="deadline">
             Deadline for submitting predictions: <?php echo $deadline_formatted; ?> BST
         </p>
-
-        <?php if (isset($message)) {
-            echo "<p>$message</p>";
-        } ?>
 
         <?php if ($is_open) { ?>
             <form method="post" action="predictions.php?race_id=<?php echo $race_id; ?>" class="prediction-form">
@@ -91,8 +88,36 @@ include 'hotbar.php';
                     <?php endforeach; ?>
                 </select><br><br>
 
-                <label for="retirements">Any Retirements?</label>
-                <input type="checkbox" id="retirements" name="retirements" <?php echo isset($prediction['retirements']) && $prediction['retirements'] ? 'checked' : ''; ?> <?php echo !$is_editable ? 'disabled' : ''; ?>><br><br>
+                <label for="retirements">Select Number of Retirements:</label>
+                <div class="retirement-options">
+                    <?php
+                    $retirement_options = [
+                        '0' => '0',
+                        '1' => '1-2',
+                        '3' => '3-4',
+                        '5' => '5+',
+                    ];
+                    ?>
+                    <?php foreach ($retirement_options as $value => $label): ?>
+                        <button type="button" class="retirement-option" data-value="<?php echo htmlspecialchars($value); ?>">
+                            <?php echo htmlspecialchars($label); ?>
+                        </button>
+                    <?php endforeach; ?>
+                </div>
+                <input type="hidden" name="retirements" id="retirements" value ="" required>
+
+                <script>
+                    document.querySelectorAll('.retirement-option').forEach(button => {
+                        button.addEventListener('click', function() {
+                            // Remove 'selected' class from all buttons
+                            document.querySelectorAll('.retirement-option').forEach(btn => btn.classList.remove('selected'));
+                            // Add 'selected' class to the clicked button
+                            this.classList.add('selected');
+                            // Set the hidden input value to the selected button's value
+                            document.getElementById('retirements').value = this.getAttribute('data-value');
+                        });
+                    });
+                </script>
 
                 <?php if ($is_editable): ?>
                     <button type="submit" name="submit_prediction">Submit Prediction</button>
@@ -102,6 +127,10 @@ include 'hotbar.php';
         <?php } else { ?>
             <p>Predictions are closed.</p>
         <?php } ?>
+
+        <?php if (isset($message)) {
+            echo "<p>$message</p>";
+        } ?>
 
         <?php if (!$prediction): ?>
             <p>You made no predictions for this race.</p>

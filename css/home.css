@@ -98,6 +98,26 @@ table.drivers img, table.constructors img {
     text-align: right;
 }
 
+/* Button-like styles for the table link */
+.table-link a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #E6002B; /* Button background color */
+    color: white; /* Button text color */
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    text-align: center;
+    text-decoration: none; /* Remove underline */
+    font-size: 16px;
+    transition: background-color 0.3s ease; /* Smooth transition for hover */
+}
+
+.table-link a:hover {
+    background-color: #B80022; /* Darker shade on hover */
+    color: #fff; /* Maintain white text on hover */
+}
+
+
 /* Responsive Design */
 @media (max-width: 1200px) {
     .container {

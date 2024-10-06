@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_prediction']) 
     $second_place = $_POST['2nd_place'];
     $third_place = $_POST['3rd_place'];
     $fastest_lap = $_POST['fastest_lap'];
-    $any_retirements = isset($_POST['retirements']) ? 1 : 0;
+    $any_retirements = isset($_POST['retirements']) ? $_POST['retirements'] : '0'; 
 
     // Insert or update the prediction
     $query = "INSERT INTO user_predictions (

@@ -10,7 +10,7 @@
         <img src="../images/f1.png" alt="Logo" class="logo">
         <a href="home.php">Home</a>
         <div class="dropdown">
-            <button class="dropbtn">Standings</button>
+            <button class="dropbtn">F1 Standings</button>
             <div class="dropdown-content">
                 <a href="drivers.php">Drivers</a>
                 <a href="constructors.php">Constructors</a>

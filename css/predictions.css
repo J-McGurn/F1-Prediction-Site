@@ -99,3 +99,25 @@ h2 {
 .prediction-form input[type="checkbox"] {
     width: auto;
 }
+
+.retirement-option {
+    background-color: #E6002B; /* Default button color */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.retirement-option:hover {
+    background-color: #c6001a; /* Darker on hover */
+}
+
+.retirement-option.selected {
+    background-color: #fff; /* Highlight color when selected */
+    color: #E6002B; /* Text color when selected */
+    border: 2px solid #E6002B; /* Add border to highlight */
+    transform: scale(1.05); /* Slightly increase size for emphasis */
+}
