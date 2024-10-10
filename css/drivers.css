@@ -24,11 +24,11 @@ table {
 
 /* Header row styling */
 th {
-    background-color: #0044cc;
+    background-color: #E6002B;
     color: white;
     padding: 10px;
     text-align: center;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 /* Data row styling */
@@ -36,6 +36,15 @@ td {
     padding: 12px;
     text-align: center;
     border-bottom: 1px solid #ddd;
+}
+
+.position {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.points {
+    font-weight: bold;
 }
 
 /* Alternating row colors */

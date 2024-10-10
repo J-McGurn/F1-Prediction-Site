@@ -33,7 +33,7 @@ $is_editable = $current_datetime < new DateTime($race['race_date']);
 
 // Fetch driver options from the active_drivers table
 $drivers = [];
-$driver_query = "SELECT driver_id, driver_name FROM active_drivers"; 
+$driver_query = "SELECT driver_id, driver_name, image_filename FROM active_drivers"; 
 $driver_result = $conn->query($driver_query);
 
 if ($driver_result) {

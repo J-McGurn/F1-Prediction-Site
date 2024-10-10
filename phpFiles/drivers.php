@@ -18,18 +18,18 @@
 
     <table>
         <tr>
-            <th>Position</th>
-            <th></th>
-            <th>Driver</th>
-            <th>Points</th>
+            <th>POSITION</th>
+            <th>TEAM</th>
+            <th>DRIVER</th>
+            <th>POINTS</th>
         </tr>
         <?php if($data): ?>
             <?php foreach ($data as $entry): ?>
                 <tr>
-                    <td><?php echo htmlspecialchars($entry['position']); ?></td>
+                    <td class="position"><?php echo htmlspecialchars($entry['position']); ?>.</td>
                     <td><img src="<?php echo htmlspecialchars($entry['logo']); ?>" alt="Team Logo" width="50" height="50"></td>
                     <td><?php echo htmlspecialchars($entry['driver']); ?></td>
-                    <td><?php echo htmlspecialchars($entry['points']); ?></td>
+                    <td class="points"><?php echo htmlspecialchars($entry['points']); ?></td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>

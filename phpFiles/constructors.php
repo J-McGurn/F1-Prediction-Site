@@ -17,10 +17,10 @@
     <h1>F1 2024 Constructor's Championship</h1>
     <table>
                 <tr>
-                    <th>Position</th>
+                    <th>POSITION</th>
                     <th>
-                    <th>Constructor</th>
-                    <th>Points</th>
+                    <th class="team">CONSTRUCTOR</th>
+                    <th>POINTS</th>
                 </tr>
                 <?php if ($data): ?>
                     <?php foreach ($data as $entry): ?>
@@ -31,15 +31,15 @@
                         $logo = htmlspecialchars($entry['logo']);
                         ?>
                         <tr>
-                            <td><?php echo $position; ?></td>
+                            <td class="position"><?php echo $position; ?>.</td>
                             <td><img src="<?php echo $logo; ?>" alt="<?php echo $team; ?>" class="team"></td>
                             <td><?php echo $team; ?></td>
-                            <td><?php echo $points; ?></td>
+                            <td class="points"><?php echo $points; ?></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="2">No data available.</td>
+                        <td colspan="4">No data available.</td>
                     </tr>
                 <?php endif; ?>
             </table>
