@@ -43,7 +43,7 @@ h3 {
 
 /* Left Section - Main Content */
 .left-section {
-    width: 70%; /* Left section takes 65% of the container's width */
+    width: 70%; /* Left section takes 70% of the container's width */
     background-color: #fff;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -53,7 +53,7 @@ h3 {
 }
 /* Right Section - Container for top and bottom sections */
 .right-section {
-    width: 30%; /* Right section takes 35% of the container's width */
+    width: 30%; /* Right section takes 30% of the container's width */
     border-radius: 8px;
      /* Space between left and right sections */
     /* Vertical border for separation */

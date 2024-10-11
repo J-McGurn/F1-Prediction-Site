@@ -122,6 +122,15 @@ h2 {
     transform: scale(1.05); /* Slightly increase size for emphasis */
 }
 
+table {
+    border-collapse: collapse; /* Collapses the borders and removes gaps */
+}
+
+td {
+    padding: 0; /* Remove any padding inside the cells */
+    margin: 0;  /* Ensure no margin inside the cells */
+}
+
 .custom-dropdown {
     position: relative;
     width: 200px;
@@ -141,7 +150,7 @@ h2 {
 
 .custom-dropdown .dropdown-selected img {
     width: 100%; /* Smaller width for the selected image */
-    height: auto; /* Maintain aspect ratio */
+    height: 200px; /* Maintain aspect ratio */
     display: block;
 }
 
@@ -168,4 +177,23 @@ h2 {
 
 .custom-dropdown .dropdown-list div:hover {
     background-color: #e0e0e0;
+}
+
+.podium-block{
+    background-color: black;
+}
+
+.podium-block img {
+    width: 55%;
+    height: auto;
+}
+
+.podium-block img.gold {
+    width: 70%;
+    padding: 10px;
+}
+
+.podium-block td {
+    text-align: center;
+    vertical-align: middle;
 }

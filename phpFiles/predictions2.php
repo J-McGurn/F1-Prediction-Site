@@ -143,46 +143,47 @@ include 'hotbar.php';
                         </div>
                     </td>
                 </tr>
-                <tr>
-                    <td>2nd Place</td>
-                    <td>1st Place</td>
-                    <td>3rd Place</td>
-                </tr>
-                <tr>
-                    <td><img src ="../images/silver.png"></td>
-                    <td><img src ="../images/gold.png"></td>
+                <tr class="podium-block">
+                    <td><img src ="../images/silver.png" class="silver"></td>
+                    <td><img src ="../images/gold.png" class="gold"></td>
                     <td><img src ="../images/bronze.png"></td>
                 </tr>
             </table>
 
+            <h2>Head-to-Head Prediction</h2>
+            <div class="h2h-container">
+                <div class="h2h-driver">
+                    <!-- First Driver -->
+                    <img src="../images/<?php echo htmlspecialchars($h2h_driver_1['image_filename']); ?>" 
+                        alt="<?php echo htmlspecialchars($h2h_driver_1['driver_name']); ?>" class="h2h-driver-image">
+                    <p><?php echo htmlspecialchars($h2h_driver_1['driver_name']); ?></p>
+                    <input type="radio" id="h2h_driver_1" name="h2h_selection" value="<?php echo htmlspecialchars($h2h_driver_1['driver_id']); ?>" required>
+                    <label for="h2h_driver_1">Select</label>
+                </div>
 
-                <label for="1st_place">1st Place:</label>
-                <select id="1st_place" name="1st_place" <?php echo !$is_editable ? 'disabled' : ''; ?> required>
-                    <?php foreach ($drivers as $driver): ?>
-                        <?php $filename = $driver['image_filename']; ?>
-                        <option value="<?php echo htmlspecialchars($driver['driver_id']); ?>" <?php echo (isset($prediction['1st_place']) && $prediction['1st_place'] == $driver['driver_id']) ? 'selected' : ''; ?>>
-                            <?php echo htmlspecialchars('../images/'.$filename); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select><br><br>
+                <div class="h2h-vs">
+                    <p>VS</p>
+                </div>
 
-                <label for="2nd_place">2nd Place:</label>
-                <select id="2nd_place" name="2nd_place" <?php echo !$is_editable ? 'disabled' : ''; ?> required>
-                    <?php foreach ($drivers as $driver): ?>
-                        <option value="<?php echo htmlspecialchars($driver['driver_id']); ?>" <?php echo (isset($prediction['2nd_place']) && $prediction['2nd_place'] == $driver['driver_id']) ? 'selected' : ''; ?>>
-                            <?php echo htmlspecialchars($driver['driver_name']); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select><br><br>
+                <div class="h2h-driver">
+                    <!-- Second Driver -->
+                    <img src="../images/<?php echo htmlspecialchars($h2h_driver_2['image_filename']); ?>" 
+                        alt="<?php echo htmlspecialchars($h2h_driver_2['driver_name']); ?>" class="h2h-driver-image">
+                    <p><?php echo htmlspecialchars($h2h_driver_2['driver_name']); ?></p>
+                    <input type="radio" id="h2h_driver_2" name="h2h_selection" value="<?php echo htmlspecialchars($h2h_driver_2['driver_id']); ?>" required>
+                    <label for="h2h_driver_2">Select</label>
+                </div>
+            </div>
 
-                <label for="3rd_place">3rd Place:</label>
-                <select id="3rd_place" name="3rd_place" <?php echo !$is_editable ? 'disabled' : ''; ?> required>
-                    <?php foreach ($drivers as $driver): ?>
-                        <option value="<?php echo htmlspecialchars($driver['driver_id']); ?>" <?php echo (isset($prediction['3rd_place']) && $prediction['3rd_place'] == $driver['driver_id']) ? 'selected' : ''; ?>>
-                            <?php echo htmlspecialchars($driver['driver_name']); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select><br><br>
+
+
+
+
+
+
+
+
+
 
                 <label for="fastest_lap">Fastest Lap:</label>
                 <select id="fastest_lap" name="fastest_lap" <?php echo !$is_editable ? 'disabled' : ''; ?> required>
