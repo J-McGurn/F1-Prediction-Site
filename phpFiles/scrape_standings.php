@@ -25,8 +25,6 @@ $data = [];
 
 if ($table) {
     $rows = $table->find('tbody tr');
-    echo "<table border='1'>";
-    echo "<tr><th>Team</th><th>Points</th></tr>"; // Header row
     foreach ($rows as $row) {
         $cells = $row->find('td');
         if (count($cells) >= 4) {
@@ -43,15 +41,8 @@ if ($table) {
                 'points' => $points,
                 'logo' => $logo
             ];
-
-            echo "<tr>";
-            echo "<td>$team</td>";
-            echo "<td>$points</td>";
-            echo "</tr>";
         }
-        
     }
-    echo "</table>";
 
     // Save the scraped data into a JSON file
     file_put_contents(__DIR__ . '/../data/constructors.json', json_encode($data));
