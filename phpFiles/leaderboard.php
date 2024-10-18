@@ -122,12 +122,12 @@
     </div>
 
     <!-- Weekly Leaderboard -->
-    <h2>Weekly Leaderboard: <?php echo htmlspecialchars($race['race_name']); ?></h2>
+    <h2>Race Leaderboard: <?php echo htmlspecialchars($race['race_name']); ?></h2>
     <table>
         <tr>
             <th>Rank</th>
             <th>Name</th>
-            <th>Points</th>
+            <th>Race Points</th>
         </tr>
         <?php 
         $rank = 1;
