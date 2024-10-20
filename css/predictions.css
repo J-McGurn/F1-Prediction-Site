@@ -12,7 +12,7 @@ body {
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
@@ -25,7 +25,8 @@ h1 {
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
-    gap: 10px; /* Space between buttons */
+    gap: 10px;
+    /* Space between buttons */
 }
 
 .race-navigation .button {
@@ -101,7 +102,8 @@ h2 {
 }
 
 .retirement-option {
-    background-color: #E6002B; /* Default button color */
+    background-color: #E6002B;
+    /* Default button color */
     color: white;
     padding: 10px 20px;
     border: none;
@@ -112,23 +114,31 @@ h2 {
 }
 
 .retirement-option:hover {
-    background-color: #c6001a; /* Darker on hover */
+    background-color: #c6001a;
+    /* Darker on hover */
 }
 
 .retirement-option.selected {
-    background-color: #fff; /* Highlight color when selected */
-    color: #E6002B; /* Text color when selected */
-    border: 2px solid #E6002B; /* Add border to highlight */
-    transform: scale(1.05); /* Slightly increase size for emphasis */
+    background-color: #fff;
+    /* Highlight color when selected */
+    color: #E6002B;
+    /* Text color when selected */
+    border: 2px solid #E6002B;
+    /* Add border to highlight */
+    transform: scale(1.05);
+    /* Slightly increase size for emphasis */
 }
 
 table {
-    border-collapse: collapse; /* Collapses the borders and removes gaps */
+    border-collapse: collapse;
+    /* Collapses the borders and removes gaps */
 }
 
 td {
-    padding: 0; /* Remove any padding inside the cells */
-    margin: 0;  /* Ensure no margin inside the cells */
+    padding: 0;
+    /* Remove any padding inside the cells */
+    margin: 0;
+    /* Ensure no margin inside the cells */
 }
 
 .custom-dropdown {
@@ -137,7 +147,8 @@ td {
 }
 
 .custom-dropdown select {
-    display: none; /* Hide the original select dropdown */
+    display: none;
+    /* Hide the original select dropdown */
 }
 
 .custom-dropdown .dropdown-selected {
@@ -149,8 +160,10 @@ td {
 }
 
 .custom-dropdown .dropdown-selected img {
-    width: 100%; /* Smaller width for the selected image */
-    height: 200px; /* Maintain aspect ratio */
+    width: 100%;
+    /* Smaller width for the selected image */
+    height: 200px;
+    /* Maintain aspect ratio */
     display: block;
 }
 
@@ -170,8 +183,10 @@ td {
 }
 
 .custom-dropdown .dropdown-list img {
-    width: 100%; /* Full width */
-    height: auto; /* Maintain aspect ratio */
+    width: 100%;
+    /* Full width */
+    height: auto;
+    /* Maintain aspect ratio */
     display: block;
 }
 
@@ -179,7 +194,7 @@ td {
     background-color: #e0e0e0;
 }
 
-.podium-block{
+.podium-block {
     background-color: black;
 }
 
@@ -196,4 +211,49 @@ td {
 .podium-block td {
     text-align: center;
     vertical-align: middle;
+}
+
+/* Container for the images and VS text */
+.special-image-selection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Style for each image container */
+.special-image {
+    margin: 0 20px;
+    /* Space between the images and the VS text */
+}
+
+/* Make the images smaller */
+.special-image img {
+    width: 100px;
+    /* Adjust the size of the images */
+    height: auto;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border 0.3s;
+    border-radius: 5px;
+    /* Optional: Make the image corners slightly rounded */
+}
+
+/* Highlight the selected image with a green border */
+.special-image img.selected {
+    border: 2px solid #00ff00;
+}
+
+/* Style for the VS text */
+.vs-text {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 10px;
+    /* Space between the VS text and the images */
+}
+
+/* Add some padding and margin to the container for a cleaner look */
+.special-image-selection {
+    padding: 10px;
+    margin: 20px 0;
 }

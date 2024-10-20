@@ -42,32 +42,73 @@ if ($driver_result) {
     }
 }
 
+// Fetch H2H driver options for active race
+// H2H_1
+$h2h1 = [];
+$h2h1_query = "SELECT h.driver1_id, h.driver2_id,
+                ad1.driver_name AS driver1_name, ad1.image_filename AS driver1_image,
+                ad2.driver_name AS driver2_name, ad2.image_filename AS driver2_image
+                FROM h2h h
+                JOIN active_drivers ad1 ON h.driver1_id = ad1.driver_id
+                JOIN active_drivers ad2 ON h.driver2_id = ad2.driver_id
+                WHERE h.race_id = ? AND h.h2h_number = 1";
+$stmt = $conn->prepare($h2h1_query);
+$stmt->bind_param("i", $race_id);
+$stmt->execute();
+$h2h1_query_result = $stmt->get_result();
+if ($h2h1_query_result) {
+    $h2h1 = $h2h1_query_result->fetch_assoc();
+}
+$stmt->close();
+
+// H2H_2
+$h2h2 = [];
+$h2h2_query = "SELECT h.driver1_id, h.driver2_id,
+                ad1.driver_name AS driver1_name, ad1.image_filename AS driver1_image,
+                ad2.driver_name AS driver2_name, ad2.image_filename AS driver2_image
+                FROM h2h h
+                JOIN active_drivers ad1 ON h.driver1_id = ad1.driver_id
+                JOIN active_drivers ad2 ON h.driver2_id = ad2.driver_id
+                WHERE h.race_id = ? AND h.h2h_number = 2";
+$stmt = $conn->prepare($h2h2_query);
+$stmt->bind_param("i", $race_id);
+$stmt->execute();
+$h2h2_query_result = $stmt->get_result();
+if ($h2h2_query_result) {
+    $h2h2 = $h2h2_query_result->fetch_assoc();
+}
+$stmt->close();
+
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_prediction']) && $is_editable) {
     $first_place = $_POST['1st_place'];
     $second_place = $_POST['2nd_place'];
     $third_place = $_POST['3rd_place'];
+    $h2h_1 = $_POST['h2h1_selection'];
+    $h2h_2 = $_POST['h2h2_selection'];
     $fastest_lap = $_POST['fastest_lap'];
     $any_retirements = isset($_POST['retirements']) ? $_POST['retirements'] : '0'; 
 
     // Insert or update the prediction
     $query = "INSERT INTO user_predictions (
                 user_id, race_id, 1st_place, 2nd_place, 3rd_place, 
-                fastest_lap, retirements
+                h2h_1, h2h_2, fastest_lap, retirements
               ) VALUES (
-                ?, ?, ?, ?, ?, ?, ?
+                ?, ?, ?, ?, ?, ?, ?, ?, ?
               ) ON DUPLICATE KEY UPDATE
                 1st_place = VALUES(1st_place),
                 2nd_place = VALUES(2nd_place),
                 3rd_place = VALUES(3rd_place),
+                h2h_1 = VALUES(h2h_1),
+                h2h_2 = VALUES(h2h_2),
                 fastest_lap = VALUES(fastest_lap),
                 retirements = VALUES(retirements)";
 
     $stmt = $conn->prepare($query);
     $stmt->bind_param(
-        "iissssi", 
+        "iiiiiiiii", 
         $user_id, $race_id, $first_place, $second_place, $third_place, 
-        $fastest_lap, $any_retirements
+        $h2h_1, $h2h_2, $fastest_lap, $any_retirements
     );
 
     if ($stmt->execute()) {

@@ -64,6 +64,28 @@ include 'hotbar.php';
             }
         });
     });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Select all the images with the class "selectable-image"
+        const selectableImages = document.querySelectorAll('.selectable-image');
+        
+        selectableImages.forEach(image => {
+            image.addEventListener('click', function () {
+                // Get the H2H number (either "h2h1" or "h2h2") from the data-h2h attribute
+                const h2hType = this.getAttribute('data-h2h');
+                
+                // Remove 'selected' class from all images in the current H2H block
+                document.querySelectorAll(`.selectable-image[data-h2h="${h2hType}"]`).forEach(img => img.classList.remove('selected'));
+
+                // Add 'selected' class to the clicked image
+                this.classList.add('selected');
+
+                // Update the correct hidden input for H2H1 or H2H2 with the selected driver's data-id
+                document.getElementById(`${h2hType}_selection`).value = this.getAttribute('data-id');
+            });
+        });
+    });
+
 </script>
 
     <div class="container">
@@ -100,7 +122,6 @@ include 'hotbar.php';
 
         <?php if ($is_open) { ?>
             <form method="post" action="predictions.php?race_id=<?php echo $race_id; ?>" class="prediction-form">
-
             <table>
                 <tr>
                     <td>
@@ -150,34 +171,63 @@ include 'hotbar.php';
                 </tr>
             </table>
 
-            <h2>Head-to-Head Prediction</h2>
-            <div class="h2h-container">
-                <div class="h2h-driver">
-                    <!-- First Driver -->
-                    <img src="../images/<?php echo htmlspecialchars($h2h_driver_1['image_filename']); ?>" 
-                        alt="<?php echo htmlspecialchars($h2h_driver_1['driver_name']); ?>" class="h2h-driver-image">
-                    <p><?php echo htmlspecialchars($h2h_driver_1['driver_name']); ?></p>
-                    <input type="radio" id="h2h_driver_1" name="h2h_selection" value="<?php echo htmlspecialchars($h2h_driver_1['driver_id']); ?>" required>
-                    <label for="h2h_driver_1">Select</label>
+            <h2>Head-to-Head 1</h2>
+            <div class="special-image-selection">
+                <div class="special-image">
+                    <img src="../images/<?php echo htmlspecialchars($h2h1['driver1_image']); ?>" 
+                        alt="<?php echo htmlspecialchars($h2h1['driver1_name']); ?>" 
+                        class="selectable-image" 
+                        data-id="<?php echo htmlspecialchars($h2h1['driver1_id']); ?>"
+                        data-h2h="h2h1" />
+                    <p><?php echo htmlspecialchars($h2h1['driver1_name']); ?></p>
                 </div>
 
-                <div class="h2h-vs">
-                    <p>VS</p>
-                </div>
+                <div class="vs-text">VS</div>
 
-                <div class="h2h-driver">
-                    <!-- Second Driver -->
-                    <img src="../images/<?php echo htmlspecialchars($h2h_driver_2['image_filename']); ?>" 
-                        alt="<?php echo htmlspecialchars($h2h_driver_2['driver_name']); ?>" class="h2h-driver-image">
-                    <p><?php echo htmlspecialchars($h2h_driver_2['driver_name']); ?></p>
-                    <input type="radio" id="h2h_driver_2" name="h2h_selection" value="<?php echo htmlspecialchars($h2h_driver_2['driver_id']); ?>" required>
-                    <label for="h2h_driver_2">Select</label>
+                <div class="special-image">
+                    <img src="../images/<?php echo htmlspecialchars($h2h1['driver2_image']); ?>" 
+                        alt="<?php echo htmlspecialchars($h2h1['driver2_name']); ?>" 
+                        class="selectable-image" 
+                        data-id="<?php echo htmlspecialchars($h2h1['driver2_id']); ?>"
+                        data-h2h="h2h1" />
+                    <p><?php echo htmlspecialchars($h2h1['driver2_name']); ?></p>
+
                 </div>
             </div>
 
+            <!-- Hidden input to store the selected driver for H2H 1 -->
+            <input type="hidden" id="h2h1_selection" name="h2h1_selection" value="" required />
+
+            <h2>Head-to-Head 2</h2>
+            <div class="special-image-selection">
+                <div class="special-image">
+                    <img src="../images/<?php echo htmlspecialchars($h2h2['driver1_image']); ?>" 
+                        alt="<?php echo htmlspecialchars($h2h2['driver1_name']); ?>" 
+                        class="selectable-image" 
+                        data-id="<?php echo htmlspecialchars($h2h2['driver1_id']); ?>"
+                        data-h2h="h2h2" />
+                    <p><?php echo htmlspecialchars($h2h2['driver1_name']); ?></p>
+                </div>
+
+                <div class="vs-text">VS</div>
+
+                <div class="special-image">
+                    <img src="../images/<?php echo htmlspecialchars($h2h2['driver2_image']); ?>" 
+                        alt="<?php echo htmlspecialchars($h2h2['driver2_name']); ?>" 
+                        class="selectable-image" 
+                        data-id="<?php echo htmlspecialchars($h2h2['driver2_id']); ?>"
+                        data-h2h="h2h2" />
+                    <p><?php echo htmlspecialchars($h2h2['driver2_name']); ?></p>
+                </div>
+            </div>
+
+            <!-- Hidden input to store the selected driver for H2H 2 -->
+            <input type="hidden" id="h2h2_selection" name="h2h2_selection" value="" required />
 
 
-
+  
+            
+            
 
 
 
