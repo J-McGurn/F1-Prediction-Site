@@ -282,15 +282,12 @@ include 'hotbar.php';
 
         <?php } else { ?>
             <p>Predictions are closed.</p>
+            <?php include 'show-predictions.php'; ?>
         <?php } ?>
 
         <?php if (isset($message)) {
             echo "<p>$message</p>";
         } ?>
-
-        <?php if (!$prediction): ?>
-            <p>You made no predictions for this race.</p>
-        <?php endif; ?>
     </div>
 </body>
 
