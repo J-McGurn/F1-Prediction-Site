@@ -93,28 +93,28 @@ include 'hotbar.php';
 
         <div class="race-navigation">
             <?php if (isset($first_race_id)): ?>
-                <?php if ($race_id != $first_race_id): ?>
+                <?php if ($current_race_id != $first_race_id): ?>
                     <a href="predictions.php?race_id=<?php echo $first_race_id; ?>" class="button">|<<</a>
-                        <?php endif; ?>
-                    <?php endif; ?>
+                <?php endif; ?>
+            <?php endif; ?>
 
-                    <?php if (isset($prev_race_id)): ?>
-                        <a href="predictions.php?race_id=<?php echo $prev_race_id; ?>" class="button">
-                            <</a>
-                            <?php endif; ?>
+            <?php if (isset($prev_race_id)): ?>
+                <a href="predictions.php?race_id=<?php echo $prev_race_id; ?>" class="button"><</a>
+            <?php endif; ?>
 
-                            <span class="current-race">
-                                <?php echo htmlspecialchars($race['race_name']); ?>
-                            </span>
 
-                            <?php if ((isset($next_race_id)) && $show_next_race_button): ?>
-                                <a href="predictions.php?race_id=<?php echo $next_race_id; ?>" class="button">></a>
-                            <?php endif; ?>
+        <span class="current-race">
+            <?php echo htmlspecialchars($race['race_name']); ?>
+        </span>
 
-                            <?php if ($current_race_id && $current_race_id != $race_id): ?>
-                                <a href="predictions.php?race_id=<?php echo $current_race_id; ?>" class="button">>>|</a>
-                            <?php endif; ?>
-        </div>
+        <?php if ($show_next_race_button): ?>
+            <a href="predictions.php?race_id=<?php echo $next_race_id; ?>" class="button">></a>
+        <?php endif; ?>
+
+        <?php if ($current_race_id != $latest_race_id): ?>
+            <a href="predictions.php?race_id=<?php echo $latest_race_id; ?>" class="button">>>|</a>
+        <?php endif; ?>
+    </div>
 
         <p class="deadline">
             Deadline for submitting predictions: <?php echo $deadline_formatted; ?> UK Time
@@ -122,6 +122,7 @@ include 'hotbar.php';
 
         <?php if ($is_open) { ?>
             <form method="post" action="predictions.php?race_id=<?php echo $race_id; ?>" class="prediction-form">
+            <h2>Podium</h2>
             <table>
                 <tr>
                     <td>

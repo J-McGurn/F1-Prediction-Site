@@ -1,9 +1,6 @@
 <?php
     session_start();
-    require 'config.php';  // Ensure connection to your MySQL database
-
-    // Get current datetime
-    $current_datetime = new DateTime();
+    require 'config.php';  // Ensure connection to MySQL database
 
     // Determine the race_id for leaderboard display based on pagination
     if (isset($_GET['race_id'])) {
@@ -30,6 +27,7 @@
     $next_race_query = "SELECT race_id FROM races WHERE race_date > (SELECT race_date FROM races WHERE race_id = ?) ORDER BY race_date ASC LIMIT 1";
     $current_race_query = "SELECT race_id FROM races WHERE race_date > NOW() ORDER BY race_date ASC LIMIT 1";
     $first_race_query = "SELECT race_id FROM races ORDER BY race_date ASC LIMIT 1";
+    $last_race_query = "SELECT race_id FROM races ORDER BY race_date DESC LIMIT 1";
 
     $stmt = $conn->prepare($prev_race_query);
     $stmt->bind_param("i", $race_id);
@@ -56,6 +54,14 @@
     $stmt->bind_result($first_race_id);
     $stmt->fetch();
     $stmt->close();
+
+    if (!$current_race_id) {
+        $stmt = $conn->prepare($last_race_query);
+        $stmt->execute();
+        $stmt->bind_result($current_race_id);
+        $stmt->fetch();
+        $stmt->close();
+    }
 
     // Fetch weekly leaderboard for the selected race using the provided query
     $weekly_query = "
@@ -127,7 +133,7 @@
         <tr>
             <th>Rank</th>
             <th>Name</th>
-            <th>Race Points</th>
+            <th>Weekly Points</th>
         </tr>
         <?php 
         $rank = 1;

@@ -1,0 +1,99 @@
+/* style.css */
+
+/* General Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Headings */
+h2 {
+    text-align: center;
+    color: #E6002B;
+    margin-top: 20px;
+}
+
+/* Tables */
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+thead th {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+tbody td {
+    text-align: center;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+table img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+/* Highlighting Correct and Incorrect Predictions */
+tbody td img[src$="tick.png"] {
+    border: 2px solid #28a745;
+    border-radius: 50%;
+    padding: 5px;
+    background-color: #dff0d8;
+}
+
+tbody td img[src$="cross.png"] {
+    border: 2px solid #dc3545;
+    border-radius: 50%;
+    padding: 5px;
+    background-color: #f8d7da;
+}
+
+/* Retirement Section */
+td {
+    font-size: 16px;
+}
+
+thead th, tbody td {
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Additional Styling for Images */
+table img {
+    margin: 0 auto;
+    display: block;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    table {
+        width: 100%;
+    }
+
+    table img {
+        width: 60px;
+        height: 60px;
+    }
+
+    tbody td {
+        font-size: 14px;
+    }
+}

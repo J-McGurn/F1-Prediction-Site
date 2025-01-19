@@ -2,26 +2,40 @@
 session_start();
 require 'config.php';  // Ensure you have a file that connects to your MySQL database
 
+// Get current user_id
 $user_id = $_SESSION['user_id'];
 
 // Get current datetime
 $current_datetime = new DateTime();
 
 // Determine the race_id to display based on pagination
-if (isset($_GET['race_id'])) {
-    $race_id = (int)$_GET['race_id'];
-} else {
-    // Fetch the next upcoming race ID
-    $next_open_race_query = "SELECT race_id FROM races WHERE race_date > NOW() ORDER BY race_date ASC LIMIT 1";
-    $next_open_race_result = $conn->query($next_open_race_query);
-    $next_open_race = $next_open_race_result->fetch_assoc();
-    $race_id = $next_open_race['race_id'] ?? null;
+// Checks to see if current race_id is displayed in URL
+if(isset($_GET['race_id'])) {
+    $current_race_id = (int)$_GET['race_id'];
+
+}
+// If not, gets the current race_id from the table
+else {
+    $race_id_query = "SELECT race_id FROM races WHERE race_date > NOW() ORDER BY race_date ASC LIMIT 1";
+    $stmt = $conn->query($race_id_query);
+    $result = $stmt->fetch_assoc();
+
+    if($result) {
+        $current_race_id = $result['race_id'];
+    }
+    // If no current race_id available (i.e end of season), use last race_id
+    else {
+        $race_id_query = "SELECT race_id FROM races ORDER BY race_date DESC LIMIT 1";
+        $stmt = $conn->query($race_id_query);
+        $result = $stmt->fetch_assoc();
+        $current_race_id = $result['race_id'];
+    }
 }
 
 // Fetch race details
 $race_query = "SELECT * FROM races WHERE race_id = ?";
 $stmt = $conn->prepare($race_query);
-$stmt->bind_param("i", $race_id);
+$stmt->bind_param("i", $current_race_id);
 $stmt->execute();
 $race_result = $stmt->get_result();
 $race = $race_result->fetch_assoc();
@@ -53,7 +67,7 @@ $h2h1_query = "SELECT h.driver1_id, h.driver2_id,
                 JOIN active_drivers ad2 ON h.driver2_id = ad2.driver_id
                 WHERE h.race_id = ? AND h.h2h_number = 1";
 $stmt = $conn->prepare($h2h1_query);
-$stmt->bind_param("i", $race_id);
+$stmt->bind_param("i", $current_race_id);
 $stmt->execute();
 $h2h1_query_result = $stmt->get_result();
 if ($h2h1_query_result) {
@@ -71,7 +85,7 @@ $h2h2_query = "SELECT h.driver1_id, h.driver2_id,
                 JOIN active_drivers ad2 ON h.driver2_id = ad2.driver_id
                 WHERE h.race_id = ? AND h.h2h_number = 2";
 $stmt = $conn->prepare($h2h2_query);
-$stmt->bind_param("i", $race_id);
+$stmt->bind_param("i", $current_race_id);
 $stmt->execute();
 $h2h2_query_result = $stmt->get_result();
 if ($h2h2_query_result) {
@@ -107,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_prediction']) 
     $stmt = $conn->prepare($query);
     $stmt->bind_param(
         "iiiiiiiii", 
-        $user_id, $race_id, $first_place, $second_place, $third_place, 
+        $user_id, $current_race_id, $first_place, $second_place, $third_place, 
         $h2h_1, $h2h_2, $fastest_lap, $any_retirements
     );
 
@@ -122,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_prediction']) 
 // Fetch race details again to ensure the latest data
 $race_query = "SELECT * FROM races WHERE race_id = ?";
 $stmt = $conn->prepare($race_query);
-$stmt->bind_param("i", $race_id);
+$stmt->bind_param("i", $current_race_id);
 $stmt->execute();
 $race_result = $stmt->get_result();
 $race = $race_result->fetch_assoc();
@@ -135,37 +149,16 @@ $deadline->modify('-1 minute');
 // Fetch existing predictions for the current race
 $prediction_query = "SELECT * FROM user_predictions WHERE user_id = ? AND race_id = ?";
 $stmt = $conn->prepare($prediction_query);
-$stmt->bind_param("ii", $user_id, $race_id);
+$stmt->bind_param("ii", $user_id, $current_race_id);
 $stmt->execute();
 $prediction_result = $stmt->get_result();
 $prediction = $prediction_result->fetch_assoc();
 $stmt->close();
 
-// Fetch the previous, next, and first race IDs based on the current race ID
+// Fetch the first, previous and next race IDs based on the current race ID
+$first_race_query = "SELECT race_id FROM races ORDER BY race_date ASC LIMIT 1";
 $prev_race_query = "SELECT race_id FROM races WHERE race_date < (SELECT race_date FROM races WHERE race_id = ?) ORDER BY race_date DESC LIMIT 1";
 $next_race_query = "SELECT race_id FROM races WHERE race_date > (SELECT race_date FROM races WHERE race_id = ?) ORDER BY race_date ASC LIMIT 1";
-$current_race_query = "SELECT race_id FROM races WHERE race_date > NOW() ORDER BY race_date ASC LIMIT 1";
-$first_race_query = "SELECT race_id FROM races ORDER BY race_date ASC LIMIT 1";
-
-$stmt = $conn->prepare($prev_race_query);
-$stmt->bind_param("i", $race_id);
-$stmt->execute();
-$stmt->bind_result($prev_race_id);
-$stmt->fetch();
-$stmt->close();
-
-$stmt = $conn->prepare($next_race_query);
-$stmt->bind_param("i", $race_id);
-$stmt->execute();
-$stmt->bind_result($next_race_id);
-$stmt->fetch();
-$stmt->close();
-
-$stmt = $conn->prepare($current_race_query);
-$stmt->execute();
-$stmt->bind_result($current_race_id);
-$stmt->fetch();
-$stmt->close();
 
 $stmt = $conn->prepare($first_race_query);
 $stmt->execute();
@@ -173,11 +166,43 @@ $stmt->bind_result($first_race_id);
 $stmt->fetch();
 $stmt->close();
 
+$stmt = $conn->prepare($prev_race_query);
+$stmt->bind_param("i", $current_race_id);
+$stmt->execute();
+$stmt->bind_result($prev_race_id);
+$stmt->fetch();
+$stmt->close();
+
+$stmt = $conn->prepare($next_race_query);
+$stmt->bind_param("i", $current_race_id);
+$stmt->execute();
+$stmt->bind_result($next_race_id);
+$stmt->fetch();
+$stmt->close();
+
+// Check if the current_race_id is the latest race to be open
+$latest_race_query = "SELECT race_id FROM races WHERE race_date > NOW() ORDER BY race_date ASC LIMIT 1";
+
+$stmt = $conn->query($latest_race_query);
+    $result = $stmt->fetch_assoc();
+
+    if($result) {
+        $latest_race_id = $result['race_id'];
+    }
+    // If no current race_id available (i.e end of season), use last race_id
+    else {
+        $latest_query = "SELECT race_id FROM races ORDER BY race_date DESC LIMIT 1";
+        $stmt = $conn->query($latest_query);
+        $result = $stmt->fetch_assoc();
+        $latest_race_id = $result['race_id'];
+    }
+
+
 // Determine if the race is open for predictions
 $is_open = $deadline > new DateTime();
 
 // Determine if the current race is the upcoming race
-$is_current_race = $race_id == $current_race_id;
+$is_current_race = $latest_race_id == $current_race_id;
 
 // Determine if the "Next Race" button should be displayed
 $show_next_race_button = !$is_current_race && $next_race_id !== null;
