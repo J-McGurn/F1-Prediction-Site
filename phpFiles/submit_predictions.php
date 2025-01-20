@@ -31,6 +31,7 @@ else {
         $current_race_id = $result['race_id'];
     }
 }
+echo $current_race_id;
 
 // Fetch race details
 $race_query = "SELECT * FROM races WHERE race_id = ?";
@@ -102,6 +103,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_prediction']) 
     $h2h_2 = $_POST['h2h2_selection'];
     $fastest_lap = $_POST['fastest_lap'];
     $any_retirements = isset($_POST['retirements']) ? $_POST['retirements'] : '0'; 
+
+    // Validate inputs
+    if (!$first_place || !$second_place || !$third_place || !$h2h_1 || !$h2h_2 || !$fastest_lap || !$any_retirements) {
+        // Redirect back with an error message
+        $error_message = urlencode("Invalid prediction data. Please fill out all required fields.");
+        header("Location: predictions.php?race_id=$current_race_id&error=$error_message");
+        exit;
+    }
+
+    // Validate race_id exists
+    $race_check_query = "SELECT COUNT(*) AS count FROM races WHERE race_id = ?";
+    $stmt = $conn->prepare($race_check_query);
+    $stmt->bind_param("i", $current_race_id);
+    $stmt->execute();
+    $stmt->bind_result($race_count);
+    $stmt->fetch();
+    $stmt->close();
+
+    if ($race_count == 0) {
+        echo $current_race_id;
+        die("Race ID does not exist in the database.");
+    }
 
     // Insert or update the prediction
     $query = "INSERT INTO user_predictions (

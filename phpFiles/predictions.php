@@ -84,6 +84,18 @@ include 'hotbar.php';
                 document.getElementById(`${h2hType}_selection`).value = this.getAttribute('data-id');
             });
         });
+
+        // Check if there's an error message in the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const errorMessage = urlParams.get('error');
+
+        if (errorMessage) {
+            // Display the error as a pop-up alert
+            alert(decodeURIComponent(errorMessage));
+            const newUrl = window.location.href.split('?')[0] + window.location.search.replace(/(&|\?)error=[^&]+/, '');
+            window.history.replaceState({}, document.title, newUrl);
+
+    }
     });
 
 </script>
@@ -121,7 +133,7 @@ include 'hotbar.php';
         </p>
 
         <?php if ($is_open) { ?>
-            <form method="post" action="predictions.php?race_id=<?php echo $race_id; ?>" class="prediction-form">
+            <form method="post" action="predictions.php?race_id=<?php echo $current_race_id; ?>" class="prediction-form">
             <h2>Podium</h2>
             <table>
                 <tr>
@@ -225,18 +237,7 @@ include 'hotbar.php';
             <!-- Hidden input to store the selected driver for H2H 2 -->
             <input type="hidden" id="h2h2_selection" name="h2h2_selection" value="" required />
 
-
-  
-            
-            
-
-
-
-
-
-
-
-                <label for="fastest_lap">Fastest Lap:</label>
+                <h2>Fastest Lap</h2>
                 <select id="fastest_lap" name="fastest_lap" <?php echo !$is_editable ? 'disabled' : ''; ?> required>
                     <?php foreach ($drivers as $driver): ?>
                         <option value="<?php echo htmlspecialchars($driver['driver_id']); ?>" <?php echo (isset($prediction['fastest_lap']) && $prediction['fastest_lap'] == $driver['driver_id']) ? 'selected' : ''; ?>>
@@ -245,14 +246,19 @@ include 'hotbar.php';
                     <?php endforeach; ?>
                 </select><br><br>
 
-                <label for="retirements">Select Number of Retirements:</label>
+                <h2>Number of Retirements</h2>
                 <div class="retirement-options">
                     <?php
                     $retirement_options = [
                         '0' => '0',
-                        '1' => '1-2',
-                        '3' => '3-4',
-                        '5' => '5+',
+                        '1' => '1',
+                        '2' => '2',
+                        '3' => '3',
+                        '4' => '4',
+                        '5' => '5',
+                        '6' => '6',
+                        '7' => '7',
+                        '8' => '8+'
                     ];
                     ?>
                     <?php foreach ($retirement_options as $value => $label): ?>

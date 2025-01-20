@@ -41,9 +41,21 @@ if ($result->num_rows > 0) {
         $points = 0;
 
         // Podium points
-        if ($row['user_1st_place'] == $row['correct_1st_place']) $points++;
-        if ($row['user_2nd_place'] == $row['correct_2nd_place']) $points++;
-        if ($row['user_3rd_place'] == $row['correct_3rd_place']) $points++;
+        if ($row['user_1st_place'] == $row['correct_1st_place'] &&
+            $row['user_2nd_place'] == $row['correct_2nd_place'] &&
+            $row['user_3rd_place'] == $row['correct_3rd_place']) {
+            $points += 10;
+        }
+        else {
+            if ($row['user_1st_place'] == $row['correct_1st_place']) $points += 3;
+            elseif ($row['user_1st_place'] == $row['correct_2nd_place'] || $row['user_1st_place'] == $row['correct_3rd_place']) $points++;
+
+            if ($row['user_2nd_place'] == $row['correct_2nd_place']) $points += 3;
+            elseif ($row['user_2nd_place'] == $row['correct_1st_place'] || $row['user_2nd_place'] == $row['correct_3rd_place']) $points++;
+
+            if ($row['user_3rd_place'] == $row['correct_3rd_place']) $points += 3;
+            elseif ($row['user_3rd_place'] == $row['correct_1st_place'] || $row['user_3rd_place'] == $row['correct_2nd_place']) $points++;
+        }
 
         // H2H points
         if ($row['user_h2h_1'] == $row['correct_h2h_1']) $points++;
@@ -56,14 +68,20 @@ if ($result->num_rows > 0) {
         $user_retirements = $row['user_retirements'];
         $actual_retirements = $row['actual_retirements'];
 
-        if (
-            ($user_retirements == 0 && $actual_retirements == 0) || // Predicted 0
-            ($user_retirements == 1 && $actual_retirements >= 1 && $actual_retirements <= 2) || // Predicted 1-2
-            ($user_retirements == 3 && $actual_retirements >= 3 && $actual_retirements <= 4) || // Predicted 3-4
-            ($user_retirements == 5 && $actual_retirements >= 5) // Predicted 5+
-        ) {
+        if ($user_retirements == $actual_retirements) {
+            $points += 3;
+        }
+        elseif (abs($user_retirements - $actual_retirements) == 1) {
             $points++;
         }
+
+        // Handle "8+" edge case
+        if ($user_retirements == 8 && $actual_retirements >= 8) {
+            $points += 3; // Exact match for "8+"
+        } elseif ($user_retirements == 8 && $actual_retirements == 7) {
+            $points += 1; // One away from 8+ case
+        }
+
 
         // Update weekly points
         if (!isset($weekly_points[$race_id])) {

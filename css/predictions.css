@@ -257,3 +257,33 @@ td {
     padding: 10px;
     margin: 20px 0;
 }
+
+/* Fastest Lap and Retirements */
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+    font-size: 14px;
+}
+
+.retirement-options {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.retirement-option {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #f4f4f4;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.retirement-option:hover {
+    background-color: #e6e6e6;
+}

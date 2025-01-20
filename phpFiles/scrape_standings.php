@@ -17,7 +17,7 @@ $teamLogos = [
 
 // CONSTRUCTORS
 $dom = new Dom;
-$url = "https://www.gpfans.com/en/f1-standings/constructors/2024/";
+$url = "https://www.gpfans.com/en/f1-standings/constructors/2025/";
 
 $dom->loadFromUrl($url);
 $table = $dom->find('table.full.ranklist')[0];
