@@ -1,0 +1,31 @@
+/* Stylesheet for the Drivers Predictions Box */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 0;
+}
+
+.predictions-box {
+    position: relative;
+    width: 60%;
+    margin: 40px 20px; /* Adjusts top and left margin */
+    border: 2px solid red;
+    border-radius: 15px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.predictions-box h1 {
+    position: absolute;
+    top: -1rem; /* Aligns with the border edge */
+    left: 1rem; /* Padding from the left */
+    margin: 0;
+    padding: 0 10px;
+    background-color: #fff; /* Matches the box background to create a "break" */
+    font-size: 1.5rem;
+    color: red;
+    font-weight: bold;
+    text-transform: uppercase;
+}
